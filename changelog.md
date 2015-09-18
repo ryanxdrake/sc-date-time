@@ -1,3 +1,27 @@
+### 1.1.2 (2015-09-17)
+
+
+#### Bug Fixes
+
+* **bootstrap:** Fix bootstrap buttons such that ng-disabled works again ([9360a41c](git://github.com/simeonc/sc-date-time.git/commit/9360a41ccb3aae043a7b5b74753f9927d2ab6bee))
+
+
+### 1.1.1 (2015-09-16)
+
+
+#### Bug Fixes
+
+* **config:** Respect compact default ([7bc834d9](git://github.com/simeonc/sc-date-time.git/commit/7bc834d996502f92b08da3769a610c6e4c9aed59))
+
+
+## 1.1.0 (2015-09-16)
+
+
+#### Features
+
+* **compact:** Add a compact mode for more versatility of use ([3b797fc2](git://github.com/simeonc/sc-date-time.git/commit/3b797fc2b655ff451f1be560520beca868bb975e))
+
+
 ### 1.0.2 (2015-09-15)
 
 

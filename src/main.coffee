@@ -7,6 +7,7 @@ angular.module('scDateTime', [])
 	displayMode: undefined
 	defaultOrientation: false
 	displayTwentyfour: false
+	compact: false
 ).value('scDateTimeI18n',
 	previousMonth: "Previous Month"
 	nextMonth: "Next Month"
@@ -32,7 +33,7 @@ angular.module('scDateTime', [])
 	require: 'ngModel'
 	templateUrl: (tElement, tAttrs) ->
 		if not tAttrs.theme? or tAttrs.theme is '' then tAttrs.theme = scDateTimeConfig.defaultTheme
-		return 'scDateTime-' + tAttrs.theme + '.tpl'
+		return "scDateTime-#{tAttrs.theme}.tpl"
 	link: (scope, element, attrs, ngModel) ->
 		attrs.$observe 'defaultMode', (val) ->
 			if val isnt 'time' and val isnt 'date' then val = scDateTimeConfig.defaultMode
@@ -45,6 +46,8 @@ angular.module('scDateTime', [])
 			scope._displayMode = val
 		attrs.$observe 'orientation', (val) ->
 			scope._verticalMode = if val? then val is 'true' else scDateTimeConfig.defaultOrientation
+		attrs.$observe 'compact', (val) ->
+			scope._compact = if val? then val is 'true' else scDateTimeConfig.compact
 		attrs.$observe 'displayTwentyfour', (val) ->
 			scope._hours24 = if val? then val else scDateTimeConfig.displayTwentyfour
 		attrs.$observe 'mindate', (val) ->
@@ -78,6 +81,11 @@ angular.module('scDateTime', [])
 				ngModel.$render()
 	controller: ['$scope', 'scDateTimeI18n', (scope, scDateTimeI18n) ->
 		scope._defaultDate = scDateTimeConfig.defaultDate
+		scope._mode = scDateTimeConfig.defaultMode
+		scope._displayMode = scDateTimeConfig.displayMode
+		scope._verticalMode = scDateTimeConfig.defaultOrientation
+		scope._hours24 = scDateTimeConfig.displayTwentyfour
+		scope._compact = scDateTimeConfig.compact
 		scope.translations = scDateTimeI18n
 		scope.restrictions =
 			mindate: undefined
@@ -90,7 +98,11 @@ angular.module('scDateTime', [])
 			scope.clock._hours = if scope._hours24 then scope.date.getHours() else scope.date.getHours() % 12
 			if not scope._hours24 and scope.clock._hours is 0 then scope.clock._hours = 12
 		scope.display =
-			fullTitle: -> _dateFilter scope.date, 'EEEE d MMMM yyyy, h:mm a'
+			fullTitle: ->
+				if scope._displayMode is 'full' and not scope._verticalMode then _dateFilter scope.date, 'EEEE d MMMM yyyy, h:mm a'
+				else if scope._displayMode is 'time' then _dateFilter scope.date, 'h:mm a'
+				else if scope._displayMode is 'date' then _dateFilter scope.date, 'EEE d MMM yyyy'
+				else _dateFilter scope.date, 'd MMM yyyy, h:mm a'
 			title: ->
 				if scope._mode is 'date'
 					_dateFilter scope.date, (if scope._displayMode is 'date' then 'EEEE' else 'EEEE h:mm a')
@@ -194,10 +206,6 @@ angular.module('scDateTime', [])
 			scope.calendar.monthChange()
 
 		scope.setNow = -> scope.setDate()
-		scope._mode = scDateTimeConfig.defaultMode
-		scope._displayMode = scDateTimeConfig.displayMode
-		scope._verticalMode = scDateTimeConfig.defaultOrientation
-		scope._hours24 = scDateTimeConfig.displayTwentyfour
 		scope.modeClass = ->
 			if scope._displayMode? then scope._mode = scope._displayMode
 			"#{if scope._verticalMode then 'vertical ' else ''}#{
@@ -205,7 +213,7 @@ angular.module('scDateTime', [])
 			else if scope._displayMode is 'time' then 'time-only'
 			else if scope._displayMode is 'date' then 'date-only'
 			else if scope._mode is 'date' then 'date-mode'
-			else 'time-mode'}"
+			else 'time-mode'} #{if scope._compact then 'compact' else ''}"
 		scope.modeSwitch = -> scope._mode = scope._displayMode ? if scope._mode is 'date' then 'time' else 'date'
 		scope.modeSwitchText = -> scDateTimeI18n.switchTo + ' ' +
 			if scope._mode is 'date' then scDateTimeI18n.clock else scDateTimeI18n.calendar
