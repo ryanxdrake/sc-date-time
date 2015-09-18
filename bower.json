@@ -1,9 +1,9 @@
 {
   "name": "ol-date-time",
-  "version": "1.0.0",
+  "version": "1.0.5",
   "main": [
-    "./dist/sc-date-time.js",
-    "./dist/sc-date-time.css"
+    "./dist/ol-date-time.js",
+    "./dist/ol-date-time.css"
   ],
   "description": "An implementation of the Material Design Date-Time picker for Angular-Material and bootstrap. Customised for OtherLevels Inc.",
   "keywords": [

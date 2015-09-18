@@ -17,16 +17,16 @@ otherLevelsDateTime
 Run `bower install otherlevels-date-time` from the command line.
 Include script tags similar to the following:
 ```html
-<link rel='stylesheet' href='/bower_components/sc-date-time/dist/sc-date-time.css'>
-<script src='/bower_components/sc-date-time/dist/sc-date-time.js'></script>
+<link rel='stylesheet' href='/bower_components/ol-date-time/dist/ol-date-time.css'>
+<script src='/bower_components/ol-date-time/dist/ol-date-time.js'></script>
 ```
 
 **Via Github:**
 
-Download the code from [https://github.com/simeonc/sc-date-time/releases/latest](https://github.com/iamryandrake/sc-date-time/releases/latest), unzip the files then add script tags similar to the following:
+Download the code from [https://github.com/simeonc/ol-date-time/releases/latest](https://github.com/iamryandrake/ol-date-time/releases/latest), unzip the files then add script tags similar to the following:
 ```html
-<link rel='stylesheet' href='/path/to/unzipped/files/sc-date-time/dist/otherlevels-date-time.css'>
-<script src='/path/to/unzipped/files/sc-date-time/dist/otherlevels-date-time.js'></script>
+<link rel='stylesheet' href='/path/to/unzipped/files/ol-date-time/dist/otherlevels-date-time.css'>
+<script src='/path/to/unzipped/files/ol-date-time/dist/otherlevels-date-time.js'></script>
 ```
 
 ## Usage
@@ -123,4 +123,4 @@ This project is licensed under the [MIT license](http://opensource.org/licenses/
 
 Special thanks to all the contributions thus far!
 
-For a full list see: https://github.com/simeonc/sc-date-time/graphs/contributors
+For a full list see: https://github.com/simeonc/ol-date-time/graphs/contributors

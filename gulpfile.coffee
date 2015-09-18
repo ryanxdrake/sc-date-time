@@ -41,15 +41,15 @@ gulp.task 'compile:coffee', ['compile:jade'], ->
 		.pipe coffeelint.reporter()
 		.pipe coffeelint.reporter 'fail'
 		.pipe coffee bare: true
-		.pipe rename 'sc-date-time.js'
+		.pipe rename 'ol-date-time.js'
 		.pipe gulp.dest 'dist'
 gulp.task 'compile:javascript', ['compile:coffee'], ->
 	pkg = JSON.parse fs.readFileSync './package.json', 'utf8'
-	gulp.src ['./dist/sc-date-time.js','./dist/*.tpl.temp']
-		.pipe order ['dist/sc-date-time.js','dist/*.tpl.temp']
-		.pipe concat 'sc-date-time.js'
+	gulp.src ['./dist/ol-date-time.js','./dist/*.tpl.temp']
+		.pipe order ['dist/ol-date-time.js','dist/*.tpl.temp']
+		.pipe concat 'ol-date-time.js'
 		.pipe concat.header """/*
-			@license sc-date-time
+			@license ol-date-time
 			@author SimeonC
 			@license 2015 MIT
 			@version #{pkg.version}
@@ -66,7 +66,7 @@ gulp.task 'compile:stylus', ['clean:dist'], ->
 		.pipe autoprefixer()
 		.pipe concat()
 		.pipe concat.header """/*
-			@license sc-date-time
+			@license ol-date-time
 			@author SimeonC
 			@license 2015 MIT
 			@version #{pkg.version}
@@ -74,7 +74,7 @@ gulp.task 'compile:stylus', ['clean:dist'], ->
 			See README.md for requirements and use.
 		*/
 		"""
-		.pipe rename 'sc-date-time.css'
+		.pipe rename 'ol-date-time.css'
 		.pipe gulp.dest 'dist'
 
 gulp.task 'compile:main', ['compile:javascript','compile:stylus']
