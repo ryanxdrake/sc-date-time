@@ -7,7 +7,7 @@
 			.sub-title {{display.sub()}}
 	.control
 		.full-title {{display.fullTitle()}}
-		.slider 
+		.slider
 			.date-control
 				.title
 					md-button(ng-click="calendar._incMonth(-1)" aria-label="{{:: translations.previousMonth}}" style="float: left;" ng-class="{'visuallyhidden': calendar.isVisibleMonthButton('mindate')}")
@@ -43,7 +43,6 @@
 						i.fa.fa-caret-down
 				.buttons(ng-if="!_hours24")
 					md-button(ng-click="clock.setAM()" aria-label="{{:: translations.switchAmPm}}") {{date | date:'a'}}
-	.buttons
-		md-button(ng-click="setNow()" aria-label="{{:: translations.now}}") {{:: translations.now}}
+	.buttons		
 		md-button(ng-click="cancel()" ng-if="!autosave" aria-label="{{:: translations.cancel}}") {{:: translations.cancel}}
 		md-button(ng-click="save()" ng-if="!autosave" aria-label="{{:: translations.save}}") {{:: translations.save}}
