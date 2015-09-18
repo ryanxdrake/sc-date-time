@@ -1,5 +1,5 @@
-angular.module('scDateTime', [])
-.value('scDateTimeConfig',
+angular.module('olDateTime', [])
+.value('olDateTimeConfig',
 	defaultTheme: 'material'
 	autosave: false
 	defaultMode: 'date'
@@ -8,7 +8,7 @@ angular.module('scDateTime', [])
 	defaultOrientation: false
 	displayTwentyfour: false
 	compact: false
-).value('scDateTimeI18n',
+).value('olDateTimeI18n',
 	previousMonth: "Previous Month"
 	nextMonth: "Next Month"
 	incrementHours: "Increment Hours"
@@ -23,8 +23,8 @@ angular.module('scDateTime', [])
 	switchTo: 'Switch to'
 	clock: 'Clock'
 	calendar: 'Calendar'
-).directive 'timeDatePicker', ['$filter', '$sce', '$rootScope', '$parse', 'scDateTimeI18n', 'scDateTimeConfig',
-($filter, $sce, $rootScope, $parse, scDateTimeI18n, scDateTimeConfig) ->
+).directive 'timeDatePicker', ['$filter', '$sce', '$rootScope', '$parse', 'olDateTimeI18n', 'olDateTimeConfig',
+($filter, $sce, $rootScope, $parse, olDateTimeI18n, olDateTimeConfig) ->
 	_dateFilter = $filter 'date'
 	restrict: 'AE'
 	replace: true
@@ -32,24 +32,24 @@ angular.module('scDateTime', [])
 		_weekdays: '=?tdWeekdays'
 	require: 'ngModel'
 	templateUrl: (tElement, tAttrs) ->
-		if not tAttrs.theme? or tAttrs.theme is '' then tAttrs.theme = scDateTimeConfig.defaultTheme
-		return "scDateTime-#{tAttrs.theme}.tpl"
+		if not tAttrs.theme? or tAttrs.theme is '' then tAttrs.theme = olDateTimeConfig.defaultTheme
+		return "olDateTime-#{tAttrs.theme}.tpl"
 	link: (scope, element, attrs, ngModel) ->
 		attrs.$observe 'defaultMode', (val) ->
-			if val isnt 'time' and val isnt 'date' then val = scDateTimeConfig.defaultMode
+			if val isnt 'time' and val isnt 'date' then val = olDateTimeConfig.defaultMode
 			scope._mode = val
 		attrs.$observe 'defaultDate', (val) ->
 			scope._defaultDate = if val? and Date.parse val then Date.parse val
-			else scDateTimeConfig.defaultDate
+			else olDateTimeConfig.defaultDate
 		attrs.$observe 'displayMode', (val) ->
-			if val isnt 'full' and val isnt 'time' and val isnt 'date' then val = scDateTimeConfig.displayMode
+			if val isnt 'full' and val isnt 'time' and val isnt 'date' then val = olDateTimeConfig.displayMode
 			scope._displayMode = val
 		attrs.$observe 'orientation', (val) ->
-			scope._verticalMode = if val? then val is 'true' else scDateTimeConfig.defaultOrientation
+			scope._verticalMode = if val? then val is 'true' else olDateTimeConfig.defaultOrientation
 		attrs.$observe 'compact', (val) ->
-			scope._compact = if val? then val is 'true' else scDateTimeConfig.compact
+			scope._compact = if val? then val is 'true' else olDateTimeConfig.compact
 		attrs.$observe 'displayTwentyfour', (val) ->
-			scope._hours24 = if val? then val else scDateTimeConfig.displayTwentyfour
+			scope._hours24 = if val? then val else olDateTimeConfig.displayTwentyfour
 		attrs.$observe 'mindate', (val) ->
 			if val? and Date.parse val
 				scope.restrictions.mindate = new Date val
@@ -58,15 +58,15 @@ angular.module('scDateTime', [])
 			if val? and Date.parse val
 				scope.restrictions.maxdate = new Date val
 				scope.restrictions.maxdate.setHours 23, 59, 59, 999
-		scope._weekdays = scope._weekdays or scDateTimeI18n.weekdays
+		scope._weekdays = scope._weekdays or olDateTimeI18n.weekdays
 		scope.$watch '_weekdays', (value) ->
 			if not value? or not angular.isArray value
-				scope._weekdays = scDateTimeI18n.weekdays
+				scope._weekdays = olDateTimeI18n.weekdays
 
 		ngModel.$render = -> scope.setDate ngModel.$modelValue or scope._defaultDate
 
 		scope.autosave = false
-		if attrs['autosave']? or scDateTimeConfig.autosave
+		if attrs['autosave']? or olDateTimeConfig.autosave
 			scope.$watch 'date', ngModel.$setViewValue
 			scope.autosave = true
 		else
@@ -79,14 +79,14 @@ angular.module('scDateTime', [])
 			scope.cancel = ->
 				cancelFn scope.$parent, {}
 				ngModel.$render()
-	controller: ['$scope', 'scDateTimeI18n', (scope, scDateTimeI18n) ->
-		scope._defaultDate = scDateTimeConfig.defaultDate
-		scope._mode = scDateTimeConfig.defaultMode
-		scope._displayMode = scDateTimeConfig.displayMode
-		scope._verticalMode = scDateTimeConfig.defaultOrientation
-		scope._hours24 = scDateTimeConfig.displayTwentyfour
-		scope._compact = scDateTimeConfig.compact
-		scope.translations = scDateTimeI18n
+	controller: ['$scope', 'olDateTimeI18n', (scope, olDateTimeI18n) ->
+		scope._defaultDate = olDateTimeConfig.defaultDate
+		scope._mode = olDateTimeConfig.defaultMode
+		scope._displayMode = olDateTimeConfig.displayMode
+		scope._verticalMode = olDateTimeConfig.defaultOrientation
+		scope._hours24 = olDateTimeConfig.displayTwentyfour
+		scope._compact = olDateTimeConfig.compact
+		scope.translations = olDateTimeI18n
 		scope.restrictions =
 			mindate: undefined
 			maxdate: undefined
@@ -215,6 +215,6 @@ angular.module('scDateTime', [])
 			else if scope._mode is 'date' then 'date-mode'
 			else 'time-mode'} #{if scope._compact then 'compact' else ''}"
 		scope.modeSwitch = -> scope._mode = scope._displayMode ? if scope._mode is 'date' then 'time' else 'date'
-		scope.modeSwitchText = -> scDateTimeI18n.switchTo + ' ' +
-			if scope._mode is 'date' then scDateTimeI18n.clock else scDateTimeI18n.calendar
+		scope.modeSwitchText = -> olDateTimeI18n.switchTo + ' ' +
+			if scope._mode is 'date' then olDateTimeI18n.clock else olDateTimeI18n.calendar
 	]]
