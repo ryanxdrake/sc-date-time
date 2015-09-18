@@ -1,9 +1,9 @@
 /*
 	@license sc-date-time
-	@author SimeonC
+	@author SimeonC (Customised by Ryan Drake on behalf of OtherLevels Inc.)
 	@license 2015 MIT
-	@version 1.0.2
-	
+	@version 1.0.0
+
 	See README.md for requirements and use.
 *//* Start Variable Declaration */
 /* End Variable Declaration */
@@ -29,6 +29,10 @@
 .time-date[theme=bootstrap] > .control > .slider > .date-control > .days > .day-cell {
   line-height: 2.3rem;
   border-radius: 3px;
+  text-decoration: none;
+}
+.time-date[theme=bootstrap] > .control > .slider > .date-control > .days > .day-cell:hover {
+  text-decoration: none;
 }
 .time-date[theme=bootstrap] > .control > .slider > .date-control > .days > .day-cell.today {
   position: relative;
@@ -65,8 +69,8 @@
           transition: color 0.6s ease-in-out;
 }
 .time-date > .display > .title {
-  background-color: #00796b;
-  color: #e1e1e1;
+  background-color: #512DA8;
+  color: #FFF;
   line-height: 2.5rem;
 }
 .time-date > .display > .content {
@@ -77,8 +81,8 @@
   top: 2.4rem;
   padding: 2.3rem 0;
   font-size: 1.5rem;
-  background-color: #009688;
-  color: #e1e1e1;
+  background-color: #673AB7;
+  color: #FFF;
 }
 .time-date > .display > .content > .super-title {
   text-transform: uppercase;
@@ -102,7 +106,7 @@
 }
 .time-date > .control > .full-title {
   display: none;
-  background-color: #00796b;
+  background-color: #512DA8;
   color: #e1e1e1;
   line-height: 2.4rem;
 }
@@ -199,11 +203,11 @@
   color: #202020;
 }
 .time-date > .control > .slider > .date-control > .days .day-cell.today {
-  color: #009688;
+  color: #673AB7;
 }
 .time-date > .control > .slider > .date-control > .days .day-cell.selected {
   color: #fff;
-  background-color: #009688;
+  background-color: #673AB7;
 }
 .time-date > .control > .slider > .date-control > .days .day-cell:hover,
 .time-date > .control > .slider > .date-control > .days .day-cell:active {
@@ -323,7 +327,7 @@
 }
 .time-date button,
 .time-date .button {
-  color: #009688;
+  color: #673AB7;
 }
 .time-date.full-mode > .display {
   display: none;
@@ -347,11 +351,24 @@
   display: none;
 }
 .time-date.full-mode > .buttons {
-  background-color: #009688;
+  background-color: #673AB7;
 }
 .time-date.full-mode > .buttons > button {
 /* Invert colours for bottom bar */
   color: #fff !important;
+}
+.time-date:not(.full-mode).compact {
+  width: 22.8rem;
+}
+.time-date:not(.full-mode).compact > .display {
+  display: none;
+}
+.time-date:not(.full-mode).compact > .control {
+  width: 100%;
+  height: 23.2rem;
+}
+.time-date:not(.full-mode).compact > .control > .full-title {
+  display: block;
 }
 .time-date.vertical {
   width: 23.1rem;

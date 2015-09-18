@@ -1,11 +1,11 @@
 {
-  "name": "sc-date-time",
-  "version": "1.0.2",
+  "name": "otherlevels-date-time",
+  "version": "1.0.0",
   "main": [
     "./dist/sc-date-time.js",
     "./dist/sc-date-time.css"
   ],
-  "description": "An implementation of the Material Design Date-Time picker for Angular-Material and bootstrap",
+  "description": "An implementation of the Material Design Date-Time picker for Angular-Material and bootstrap. Customised for OtherLevels Inc.",
   "keywords": [
     "angular"
   ],
@@ -19,9 +19,7 @@
     "package.json"
   ],
   "dependencies": {
-    "angular": "^1.2.x",
-    "font-awesome": "^4.2.0"
+    "angular": "^1.2.x"
   },
-  "license": "MIT",
-  "homepage": "http://simeonc.github.io/sc-date-time"
+  "license": "MIT"
 }

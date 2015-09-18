@@ -1,11 +1,10 @@
-scDateTime (formerly mdDateTime)
+otherLevelsDateTime
 ===========
 
 
 ## Requirements
 
 1. `AngularJS` ≥ `1.2.x`
-2. `FontAwesome` ≥ `4.2.x`
 
 ### Optional Recommended Requirements
 
@@ -16,7 +15,7 @@ scDateTime (formerly mdDateTime)
 
 **Via Bower:**
 
-Run `bower install sc-date-time` from the command line.
+Run `bower install otherlevels-date-time` from the command line.
 Include script tags similar to the following:
 ```html
 <link rel='stylesheet' href='/bower_components/sc-date-time/dist/sc-date-time.css'>
@@ -25,10 +24,10 @@ Include script tags similar to the following:
 
 **Via Github:**
 
-Download the code from [https://github.com/simeonc/sc-date-time/releases/latest](https://github.com/simeonc/sc-date-time/releases/latest), unzip the files then add script tags similar to the following:
+Download the code from [https://github.com/simeonc/sc-date-time/releases/latest](https://github.com/iamryandrake/sc-date-time/releases/latest), unzip the files then add script tags similar to the following:
 ```html
-<link rel='stylesheet' href='/path/to/unzipped/files/sc-date-time/dist/sc-date-time.css'>
-<script src='/path/to/unzipped/files/sc-date-time/dist/sc-date-time.js'></script>
+<link rel='stylesheet' href='/path/to/unzipped/files/sc-date-time/dist/otherlevels-date-time.css'>
+<script src='/path/to/unzipped/files/sc-date-time/dist/otherlevels-date-time.js'></script>
 ```
 
 ## Usage
