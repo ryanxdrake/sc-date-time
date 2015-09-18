@@ -52,6 +52,9 @@ clock-radius = 75
 		& > .control > .slider > .date-control > .days > .day-cell
 			line-height: 2.3rem
 			border-radius: 3px
+			text-decoration: none
+			&:hover
+				text-decoration: none
 			&.today
 				position: relative
 				&::after
@@ -294,6 +297,15 @@ clock-radius = 75
 			& > button
 				/* Invert colours for bottom bar */
 				color: $selected-text-colour !important
+	&:not(.full-mode).compact
+		width: 22.8rem
+		& > .display
+			display: none
+		& > .control
+			width: 100%
+			height: 23.2rem
+			& > .full-title
+				display: block
 
 vertical-orient()
 	width: 23.1rem

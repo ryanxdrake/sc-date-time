@@ -1,5 +1,5 @@
 {
-  "name": "otherlevels-date-time",
+  "name": "ol-date-time",
   "version": "1.0.0",
   "main": [
     "./dist/sc-date-time.js",

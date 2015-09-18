@@ -1,18 +1,17 @@
 {
-  "name": "sc-date-time",
-  "filename": "sc-date-time.min.js",
-  "version": "1.0.2",
-  "description": "An implementation of the Material Design Date-Time picker",
+  "name": "ol-date-time",
+  "filename": "ol-date-time.min.js",
+  "version": "1.0.0",
+  "description": "An implementation of the Material Design Date-Time picker. Customised for OtherLevels Inc.",
   "maintainers": [
     {
-      "name": "SimeonC"
+      "name": "SimeonC (Modified by Ryan Drake)"
     }
   ],
   "keywords": [
     "AngularJS"
   ],
   "license": "MIT",
-  "homepage": "http://simeonc.github.io/md-date-time",
   "main": "./dist/sc-date-time.min.js",
   "devDependencies": {
     "bower": "^1.3.12",
@@ -45,6 +44,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/simeonc/sc-date-time.git"
+    "url": "git://github.com/iamryandrake/sc-date-time.git"
   }
 }
