@@ -116,7 +116,8 @@ clock-radius = 75
 				& .month-year
 					text-align: center
 					& > .month-year-content
-						margin: 0 auto 0 auto;
+						margin: 0 auto 0 auto
+						padding-left: 10px
 				& .left
 					text-align: center
 					padding-top: 5px
@@ -150,7 +151,8 @@ clock-radius = 75
 					cursor: default
 					box-sizing: border-box
 					padding-bottom: 0
-					height: 1.8rem
+					height: 30px
+					min-height: 30px
 					color: $unselectable-text-colour
 			& .day-cell
 				float: left
@@ -174,7 +176,7 @@ clock-radius = 75
 						background-color: $hover-background-colour
 					&:disabled
 						color: #aaa
-						background-color: none;
+						background-color: none
 	&.date-mode-add, &.date-mode-remove
 		& > .display
 			color: transparent !important
