@@ -1,6 +1,6 @@
 {
   "name": "ol-date-time",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "main": [
     "./dist/ol-date-time.js",
     "./dist/ol-date-time.css"
