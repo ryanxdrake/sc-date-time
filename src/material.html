@@ -10,15 +10,9 @@
         <div class="time-control" layout="row">
           <div flex="30"></div>
           <div class="time-inputs" layout="row" flex>
-            <md-input-container layout="row">
-              <input  max="{{_hours24 ? 23 : 12}}" min="{{_hours24 ? 0 : 1}}" ng-model="clock._hours" type="number"/>
+            <md-input-container>
+              <input ng-model="_time" type="time" aria-label="Enter time"/>
             </md-input-container>
-            <md-input-container layout="row">
-              <input max="59" min="0" ng-model="clock._minutes" type="number" />
-            </md-input-container>
-            <div class="buttons" ng-if="!_hours24">
-              <md-button aria-label="{{:: translations.switchAmPm}}" class="md-primary" ng-click="clock.setAM()">{{date | date:'a'}}</md-button>
-            </div>
           </div>
           <div flex="30"></div>
       </div>

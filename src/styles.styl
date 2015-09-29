@@ -54,7 +54,6 @@ clock-radius = 75
 		position: relative
 		width: 45%
 		height: 75%
-		cursor: pointer
 		transition: color 0.6s ease-in-out
 		& > .title
 			background-color: $title-background
@@ -91,14 +90,16 @@ clock-radius = 75
 				padding-right: 0.5rem
 				color: $button-text-colour-invert
 				& input
+					padding-left: 10px
+					margin-left: -10px
 					color: $button-text-colour-invert
 					border-color: $button-text-colour-invert
-					width: 33px
+					width: 110px
 			  & .material-icons, button.md-primary
 					color: $button-text-colour-invert
 	& > .control
 		width: 50%
-		overflow-x: hidden
+		overflow: hidden
 		position: relative
 		& > .full-title
 			display: none
@@ -117,7 +118,7 @@ clock-radius = 75
 					text-align: center
 					& > .month-year-content
 						margin: 0 auto 0 auto
-						padding-left: 10px
+						padding-left: 1rem
 				& .left
 					text-align: center
 					padding-top: 5px
@@ -151,13 +152,15 @@ clock-radius = 75
 					cursor: default
 					box-sizing: border-box
 					padding-bottom: 0
-					height: 30px
-					min-height: 30px
+					width: 2.2rem
+					height: 2.2rem
+					min-height: 2.2rem
 					color: $unselectable-text-colour
 			& .day-cell
 				float: left
 				width: 2.2rem
-				height: 1.8rem
+				height: 2.2rem
+				min-height: 2.2rem
 				padding: 0
 				cursor: pointer
 			& > .days
