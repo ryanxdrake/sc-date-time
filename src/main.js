@@ -1,12 +1,8 @@
 angular.module('olDateTime', []).value('olDateTimeConfig', {
   defaultTheme: 'material',
   autosave: false,
-  defaultMode: 'date',
   defaultDate: void 0,
-  displayMode: void 0,
-  defaultOrientation: true,
-  displayTwentyfour: false,
-  compact: false
+  displayTwentyfour: false
 }).value('olDateTimeI18n', {
   previousMonth: "Previous Month",
   nextMonth: "Next Month",
@@ -34,61 +30,47 @@ angular.module('olDateTime', []).value('olDateTimeConfig', {
       },
       require: 'ngModel',
       templateUrl: function(tElement, tAttrs) {
-        if ((tAttrs.theme == null) || tAttrs.theme === '') {
-          tAttrs.theme = olDateTimeConfig.defaultTheme;
-        }
-        return "olDateTime-" + tAttrs.theme + ".tpl";
+        return "olDateTime-material.tpl";
       },
       link: function(scope, element, attrs, ngModel) {
         var cancelFn, saveFn;
 
-        attrs.$observe('defaultMode', function(val) {
-          if (val !== 'time' && val !== 'date') {
-            val = olDateTimeConfig.defaultMode;
-          }
-          return scope._mode = val;
-        });
-
         attrs.$observe('defaultDate', function(val) {
-          return scope._defaultDate = (val != null) && Date.parse(val) ? Date.parse(val) : olDateTimeConfig.defaultDate;
-        });
-
-        attrs.$observe('displayMode', function(val) {
-          if (val !== 'full' && val !== 'time' && val !== 'date') {
-            val = olDateTimeConfig.displayMode;
-          }
-          return scope._displayMode = val;
-        });
-
-        attrs.$observe('orientation', function(val) {
-          return scope._verticalMode = val != null ? val === 'true' : olDateTimeConfig.defaultOrientation;
-        });
-
-        attrs.$observe('compact', function(val) {
-          return scope._compact = val != null ? val === 'true' : olDateTimeConfig.compact;
+          return scope._defaultDate = (val !== null) && Date.parse(val) ? Date.parse(val) : olDateTimeConfig.defaultDate;
         });
 
         attrs.$observe('displayTwentyfour', function(val) {
-          return scope._hours24 = val != null ? val : olDateTimeConfig.displayTwentyfour;
+          return scope._hours24 = (val !== null ? val : olDateTimeConfig.displayTwentyfour);
         });
 
+        String.prototype.replaceAll = function (find, replace) {
+            var str = this;
+            return str.replace(new RegExp(find, 'g'), replace);
+        };
+
         attrs.$observe('mindate', function(val) {
-          if ((val != null) && Date.parse(val)) {
-            scope.restrictions.mindate = new Date(val);
-            return scope.restrictions.mindate.setHours(0, 0, 0, 0);
+          if (val !== null) {
+              val = val.replaceAll('"', '');
+              if (Date.parse(val)) {
+                scope.restrictions.mindate = new Date(val);
+                return scope.restrictions.mindate.setHours(0, 0, 0, 0);
+              }
           }
         });
 
         attrs.$observe('maxdate', function(val) {
-          if ((val != null) && Date.parse(val)) {
-            scope.restrictions.maxdate = new Date(val);
-            return scope.restrictions.maxdate.setHours(23, 59, 59, 999);
+          if (val !== null) {
+              val = val.replaceAll('"', '');
+              if (Date.parse(val)) {
+                scope.restrictions.maxdate = new Date(val);
+                return scope.restrictions.maxdate.setHours(23, 59, 59, 999);
+              }
           }
         });
 
         scope._weekdays = scope._weekdays || olDateTimeI18n.weekdays;
         scope.$watch('_weekdays', function(value) {
-          if ((value == null) || !angular.isArray(value)) {
+          if ((value === null) || !angular.isArray(value)) {
             return scope._weekdays = olDateTimeI18n.weekdays;
           }
         });
@@ -106,12 +88,13 @@ angular.module('olDateTime', []).value('olDateTimeConfig', {
         };
 
         scope.autosave = false;
-        if ((attrs['autosave'] != null) || olDateTimeConfig.autosave) {
+        if ((attrs.autosave !== null) || olDateTimeConfig.autosave) {
           scope.$watch('date', ngModel.$setViewValue);
-          return scope.autosave = true;
+          return scope.autosave === true;
         } else {
           saveFn = $parse(attrs.onSave);
           cancelFn = $parse(attrs.onCancel);
+
           scope.save = function() {
             ngModel.$setViewValue(new Date(scope.date));
             return saveFn(scope.$parent, {
@@ -119,7 +102,7 @@ angular.module('olDateTime', []).value('olDateTimeConfig', {
             });
           };
 
-          return scope.cancel = function() {
+          scope.cancel = function() {
             cancelFn(scope.$parent, {});
             return ngModel.$render();
           };
@@ -129,11 +112,7 @@ angular.module('olDateTime', []).value('olDateTimeConfig', {
         '$scope', 'olDateTimeI18n', function(scope, olDateTimeI18n) {
           var i;
           scope._defaultDate = olDateTimeConfig.defaultDate;
-          scope._mode = olDateTimeConfig.defaultMode;
-          scope._displayMode = olDateTimeConfig.displayMode;
-          scope._verticalMode = olDateTimeConfig.defaultOrientation;
           scope._hours24 = olDateTimeConfig.displayTwentyfour;
-          scope._compact = olDateTimeConfig.compact;
           scope.translations = olDateTimeI18n;
           scope.restrictions = {
             mindate: void 0,
@@ -149,39 +128,19 @@ angular.module('olDateTime', []).value('olDateTimeConfig', {
 
           scope.display = {
             fullTitle: function() {
-              if (scope._displayMode === 'full' && !scope._verticalMode) {
-                return _dateFilter(scope.date, 'EEEE d MMMM yyyy, h:mm a');
-              } else if (scope._displayMode === 'time') {
-                return _dateFilter(scope.date, 'h:mm a');
-              } else if (scope._displayMode === 'date') {
-                return _dateFilter(scope.date, 'EEE d MMM yyyy');
-              } else {
-                return _dateFilter(scope.date, 'd MMM yyyy, h:mm a');
-              }
+              return _dateFilter(scope.date, 'EEE d MMM yyyy');
             },
             title: function() {
-              if (scope._mode === 'date') {
-                return _dateFilter(scope.date, (scope._displayMode === 'date' ? 'EEEE' : 'EEEE h:mm a'));
-              } else {
-                return _dateFilter(scope.date, 'MMMM d yyyy');
-              }
+              return _dateFilter(scope.date, 'EEEE');
             },
             "super": function() {
-              if (scope._mode === 'date') {
-                return _dateFilter(scope.date, 'MMM');
-              } else {
-                return '';
-              }
+              return _dateFilter(scope.date, 'MMM');
             },
             main: function() {
-              return $sce.trustAsHtml(scope._mode === 'date' ? _dateFilter(scope.date, 'd') : (_dateFilter(scope.date, 'h:mm')) + "<small>" + (_dateFilter(scope.date, 'a')) + "</small>");
+              return $sce.trustAsHtml(_dateFilter(scope.date, 'd'));
             },
             sub: function() {
-              if (scope._mode === 'date') {
-                return _dateFilter(scope.date, 'yyyy');
-              } else {
-                return '';
-              }
+              return _dateFilter(scope.date, 'yyyy');
             }
           };
           scope.calendar = {
@@ -207,7 +166,7 @@ angular.module('olDateTime', []).value('olDateTimeConfig', {
               currentDate = new Date(this._year, this._month, d);
               mindate = scope.restrictions.mindate;
               maxdate = scope.restrictions.maxdate;
-              return ((mindate != null) && currentDate < mindate) || ((maxdate != null) && currentDate > maxdate);
+              return (mindate && currentDate < mindate) || (maxdate && currentDate > maxdate);
             },
             isVisibleMonthButton: function(minOrMax) {
               var date;
@@ -230,26 +189,26 @@ angular.module('olDateTime', []).value('olDateTimeConfig', {
             },
             monthChange: function() {
               var maxdate, mindate;
-              if ((this._year == null) || isNaN(this._year)) {
+              if ((this._year === null) || isNaN(this._year)) {
                 this._year = new Date().getFullYear();
               }
               mindate = scope.restrictions.mindate;
               maxdate = scope.restrictions.maxdate;
-              if ((mindate != null) && mindate.getFullYear() === this._year && mindate.getMonth() >= this._month) {
+              if (mindate && mindate.getFullYear() === this._year && mindate.getMonth() >= this._month) {
                 this._month = Math.max(mindate.getMonth(), this._month);
               }
-              if ((maxdate != null) && maxdate.getFullYear() === this._year && maxdate.getMonth() <= this._month) {
+              if (maxdate && maxdate.getFullYear() === this._year && maxdate.getMonth() <= this._month) {
                 this._month = Math.min(maxdate.getMonth(), this._month);
               }
               scope.date.setFullYear(this._year, this._month);
               if (scope.date.getMonth() !== this._month) {
                 scope.date.setDate(0);
               }
-              if ((mindate != null) && scope.date < mindate) {
+              if (mindate && scope.date < mindate) {
                 scope.date.setDate(mindate.getTime());
                 scope.calendar.select(mindate.getDate());
               }
-              if ((maxdate != null) && scope.date > maxdate) {
+              if (maxdate && scope.date > maxdate) {
                 scope.date.setDate(maxdate.getTime());
                 return scope.calendar.select(maxdate.getDate());
               }
@@ -270,25 +229,19 @@ angular.module('olDateTime', []).value('olDateTimeConfig', {
           };
           scope.$watch('calendar._year', function(val) {
             var len, maxdate, mindate;
-            if ((val == null) || val === '' || isNaN(val) || val < 0) {
+            if ((val === null) || val === '' || isNaN(val) || val < 0) {
               return;
             }
 
             mindate = scope.restrictions.mindate;
             maxdate = scope.restrictions.maxdate;
-            i = (mindate != null) && mindate.getFullYear() === scope.calendar._year ? mindate.getMonth() : 0;
-            len = (maxdate != null) && maxdate.getFullYear() === scope.calendar._year ? maxdate.getMonth() : 11;
+            i = mindate && mindate.getFullYear() === scope.calendar._year ? mindate.getMonth() : 0;
+            len = maxdate && maxdate.getFullYear() === scope.calendar._year ? maxdate.getMonth() : 11;
             scope.calendar._months = scope.calendar._allMonths.slice(i, len + 1);
 
           });
           scope.setNow = function() {
             return scope.setDate();
-          };
-          scope.modeClass = function() {
-            if (scope._displayMode != null) {
-              scope._mode = scope._displayMode;
-            }
-            return "" + (scope._verticalMode ? 'vertical ' : '') + (scope._displayMode === 'full' ? 'full-mode' : scope._displayMode === 'time' ? 'time-only' : scope._displayMode === 'date' ? 'date-only' : scope._mode === 'date' ? 'date-mode' : 'time-mode') + " " + (scope._compact ? 'compact' : '');
           };
         }
       ]

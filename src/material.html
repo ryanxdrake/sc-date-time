@@ -1,4 +1,4 @@
-<div class="time-date" ng-class="modeClass()">
+<div class="vertical time-date">
   <div class="display">
     <div class="title">{{display.title()}}</div>
       <div class="content" layout="column">
@@ -11,7 +11,7 @@
           <div flex="30"></div>
           <div class="time-inputs" layout="row" flex>
             <md-input-container>
-              <input ng-model="_time" type="time" aria-label="Enter time"/>
+              <input ng-model="_time" type="time" aria-label="Enter time" step="60"/>
             </md-input-container>
           </div>
           <div flex="30"></div>
@@ -30,7 +30,7 @@
             <span class="month-part">{{date | date:'MMMM'}}
               <select ng-change="calendar.monthChange()" ng-model="calendar._month" ng-options="calendar._allMonths.indexOf(month) as month for month in calendar._months"></select>
             </span>
-            <input class="year-part" max="{{restrcitions.maxdate ? restrictions.maxdate.getFullYear() : NaN}}" min="{{restrictions.mindate ? restrictions.mindate.getFullYear() : 0}}" ng-model="calendar._year" type="number"/>
+            <input class="year-part" max="{{restrictions.maxdate ? restrictions.maxdate.getFullYear() : NaN}}" min="{{restrictions.mindate ? restrictions.mindate.getFullYear() : 0}}" ng-model="calendar._year" type="number"/>
           </div>
         </div>
         <md-button aria-label="{{:: translations.nextMonth}}" ng-class="{'visuallyhidden': calendar.isVisibleMonthButton('maxdate')}" ng-click="calendar._incMonth(1)" flex class="right">
