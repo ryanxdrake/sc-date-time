@@ -7,11 +7,11 @@
           <div class="title main-title" flex ng-bind-html="display.main()"></div>
           <div class="small sub-title" flex="30">{{display.sub()}}</div>
         </div>
-        <div class="time-control" layout="row">
+        <div class="time-control" layout="row" ng-show="showTime">
           <div flex="30"></div>
           <div class="time-inputs" layout="row" flex>
             <md-input-container>
-              <input ng-model="_time" type="time" aria-label="Enter time" step="60"/>
+              <input ng-model="date" type="time" aria-label="Enter time" step="60"/>
             </md-input-container>
           </div>
           <div flex="30"></div>

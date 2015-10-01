@@ -26,7 +26,8 @@ angular.module('olDateTime', []).value('olDateTimeConfig', {
       restrict: 'AE',
       replace: true,
       scope: {
-        _weekdays: '=?tdWeekdays'
+        _weekdays: '=?tdWeekdays',
+        showTime: '='
       },
       require: 'ngModel',
       templateUrl: function(tElement, tAttrs) {
@@ -34,21 +35,22 @@ angular.module('olDateTime', []).value('olDateTimeConfig', {
       },
       link: function(scope, element, attrs, ngModel) {
         var cancelFn, saveFn;
-
-        attrs.$observe('defaultDate', function(val) {
-          return scope._defaultDate = (val !== null) && Date.parse(val) ? Date.parse(val) : olDateTimeConfig.defaultDate;
-        });
-
-        attrs.$observe('displayTwentyfour', function(val) {
-          return scope._hours24 = (val !== null ? val : olDateTimeConfig.displayTwentyfour);
-        });
+        var unbinders = [];
 
         String.prototype.replaceAll = function (find, replace) {
             var str = this;
             return str.replace(new RegExp(find, 'g'), replace);
         };
 
-        attrs.$observe('mindate', function(val) {
+        unbinders.push(attrs.$observe('defaultDate', function(val) {
+          return scope._defaultDate = (val !== null) && Date.parse(val) ? Date.parse(val) : olDateTimeConfig.defaultDate;
+        }));
+
+        unbinders.push(attrs.$observe('displayTwentyfour', function(val) {
+          return scope._hours24 = (val !== null ? val : olDateTimeConfig.displayTwentyfour);
+        }));
+
+        unbinders.push(attrs.$observe('mindate', function(val) {
           if (val !== null) {
               val = val.replaceAll('"', '');
               if (Date.parse(val)) {
@@ -56,9 +58,9 @@ angular.module('olDateTime', []).value('olDateTimeConfig', {
                 return scope.restrictions.mindate.setHours(0, 0, 0, 0);
               }
           }
-        });
+        }));
 
-        attrs.$observe('maxdate', function(val) {
+        unbinders.push(attrs.$observe('maxdate', function(val) {
           if (val !== null) {
               val = val.replaceAll('"', '');
               if (Date.parse(val)) {
@@ -66,47 +68,57 @@ angular.module('olDateTime', []).value('olDateTimeConfig', {
                 return scope.restrictions.maxdate.setHours(23, 59, 59, 999);
               }
           }
-        });
+        }));
 
         scope._weekdays = scope._weekdays || olDateTimeI18n.weekdays;
-        scope.$watch('_weekdays', function(value) {
+        unbinders.push(scope.$watch('_weekdays', function(value) {
           if ((value === null) || !angular.isArray(value)) {
             return scope._weekdays = olDateTimeI18n.weekdays;
           }
-        });
+        }));
 
-        scope.$watch('_time', function(val) {
-          if (!val) {
-            val = new Date();
+        unbinders.push(scope.$watch('date', function(date) {
+          if (!date) {
+            date = new Date();
           }
-          scope.date.setHours(val.getHours());
-          scope.date.setMinutes(val.getMinutes());
-        });
+          ngModel.$setViewValue;
+        }));
+
+        // Run through al watch/observes and call unbind
+        var cleanUp = function() {
+          for (var i = 0; i < unbinders.length; i++) {
+            unbinders[i]();
+          }
+        }
+
+        // Save and cancel
+        saveFn = $parse(attrs.onSave);
+        cancelFn = $parse(attrs.onCancel);
 
         ngModel.$render = function() {
           return scope.setDate(ngModel.$modelValue || scope._defaultDate);
         };
 
-        scope.autosave = false;
-        if ((attrs.autosave !== null) || olDateTimeConfig.autosave) {
-          scope.$watch('date', ngModel.$setViewValue);
-          return scope.autosave === true;
-        } else {
-          saveFn = $parse(attrs.onSave);
-          cancelFn = $parse(attrs.onCancel);
+        scope.save = function() {
+          ngModel.$setViewValue(new Date(scope.date));
+          saveFn(scope.$parent, {
+            $value: new Date(scope.date)
+          });
+          cleanUp();
+        };
 
-          scope.save = function() {
-            ngModel.$setViewValue(new Date(scope.date));
-            return saveFn(scope.$parent, {
-              $value: new Date(scope.date)
-            });
-          };
+        scope.cancel = function() {
+          cancelFn(scope.$parent, {});
+          cleanUp();
+          return ngModel.$render();
+        };
 
-          scope.cancel = function() {
-            cancelFn(scope.$parent, {});
-            return ngModel.$render();
-          };
-        }
+        element.on(
+            "$destroy",
+            function() {
+                cleanUp();
+            }
+        );
       },
       controller: [
         '$scope', 'olDateTimeI18n', function(scope, olDateTimeI18n) {
@@ -120,10 +132,12 @@ angular.module('olDateTime', []).value('olDateTimeConfig', {
           };
 
           scope.setDate = function(newVal) {
-            scope.date = newVal ? new Date(newVal) : new Date();
+            var date = newVal ? new Date(newVal) : new Date();
+            date.setMilliseconds(0);
+            date.setSeconds(0);
+            scope.date = date;
             scope.calendar._year = scope.date.getFullYear();
             scope.calendar._month = scope.date.getMonth();
-            scope._time = angular.copy(scope.date);
           };
 
           scope.display = {
