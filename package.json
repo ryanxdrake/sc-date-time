@@ -1,7 +1,7 @@
 {
   "name": "ol-date-time",
   "filename": "ol-date-time.min.js",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "An implementation of the Material Design Date-Time picker. Customised for OtherLevels Inc.",
   "maintainers": [
     {
