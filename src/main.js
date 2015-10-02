@@ -84,6 +84,14 @@ angular.module('olDateTime', []).value('olDateTimeConfig', {
           ngModel.$setViewValue;
         }));
 
+        unbinders.push(scope.$watch('time', function(time) {
+          if (!time) {
+            time = new Date();
+          }
+          scope.date.setHours(time.getHours());
+          scope.date.setMinutes(time.getMinutes());
+        }));
+
         // Run through al watch/observes and call unbind
         var cleanUp = function() {
           for (var i = 0; i < unbinders.length; i++) {
@@ -136,6 +144,12 @@ angular.module('olDateTime', []).value('olDateTimeConfig', {
             date.setMilliseconds(0);
             date.setSeconds(0);
             scope.date = date;
+
+            if (scope.date != scope.time)
+            {
+              scope.time = date;
+            }
+
             scope.calendar._year = scope.date.getFullYear();
             scope.calendar._month = scope.date.getMonth();
           };
