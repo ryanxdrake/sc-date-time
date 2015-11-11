@@ -1,11 +1,11 @@
 {
   "name": "ol-date-time",
   "filename": "ol-date-time.min.js",
-  "version": "1.0.13",
+  "version": "1.1.2",
   "description": "An implementation of the Material Design Date-Time picker. Customised for OtherLevels Inc.",
   "maintainers": [
     {
-      "name": "SimeonC (Modified by Ryan Drake)"
+      "name": "SimeonC (Modified by Ryan Drake + Dominic Garibaldi)"
     }
   ],
   "keywords": [
