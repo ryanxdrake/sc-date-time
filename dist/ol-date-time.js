@@ -2,7 +2,7 @@
 	@license ol-date-time
 	@author SimeonC
 	@license 2015 MIT
-	@version 1.1.6
+	@version 1.1.7
 
 	See README.md for requirements and use.
 */angular.module('olDateTime', []).value('olDateTimeConfig', {
