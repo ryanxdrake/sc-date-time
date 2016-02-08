@@ -1,7 +1,7 @@
 {
   "name": "ol-date-time",
   "filename": "ol-date-time.min.js",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "An implementation of the Material Design Date-Time picker. Customised for OtherLevels Inc.",
   "maintainers": [
     {
@@ -14,7 +14,7 @@
   "license": "MIT",
   "main": "./dist/ol-date-time.min.js",
   "devDependencies": {
-    "bower": "^1.6.5",
+    "bower": "^1.7.7",
     "coffee-script": "^1.10.0",
     "conventional-changelog": "^1.0.1",
     "del": "^2.2.0",
