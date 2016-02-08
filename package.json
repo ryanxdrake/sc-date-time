@@ -1,7 +1,7 @@
 {
   "name": "ol-date-time",
   "filename": "ol-date-time.min.js",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "An implementation of the Material Design Date-Time picker. Customised for OtherLevels Inc.",
   "maintainers": [
     {
@@ -14,11 +14,11 @@
   "license": "MIT",
   "main": "./dist/ol-date-time.min.js",
   "devDependencies": {
-    "bower": "^1.3.12",
-    "coffee-script": "^1.8.0",
+    "bower": "^1.6.5",
+    "coffee-script": "^1.10.0",
     "conventional-changelog": "0.0.11",
     "del": "^1.1.1",
-    "gulp": "^3.8.10",
+    "gulp": "^4.0.0",
     "gulp-autoprefixer": "^2.0.0",
     "gulp-bump": "^0.1.11",
     "gulp-coffee": "^2.2.0",
@@ -44,6 +44,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/iamryandrake/ol-date-time.git"
+    "url": "git://github.com/iamryandrake/sc-date-time.git"
   }
 }
