@@ -1,7 +1,7 @@
 {
   "name": "ol-date-time",
   "filename": "ol-date-time.min.js",
-  "version": "1.1.2",
+  "version": "1.1.7",
   "description": "An implementation of the Material Design Date-Time picker. Customised for OtherLevels Inc.",
   "maintainers": [
     {
@@ -14,29 +14,29 @@
   "license": "MIT",
   "main": "./dist/ol-date-time.min.js",
   "devDependencies": {
-    "bower": "^1.3.12",
-    "coffee-script": "^1.8.0",
-    "conventional-changelog": "0.0.11",
-    "del": "^1.1.1",
-    "gulp": "^3.8.10",
-    "gulp-autoprefixer": "^2.0.0",
-    "gulp-bump": "^0.1.11",
-    "gulp-coffee": "^2.2.0",
-    "gulp-coffeelint": "^0.4.0",
-    "gulp-concat-util": "^0.5.1",
-    "gulp-filter": "^2.0.0",
-    "gulp-git": "^0.5.5",
-    "gulp-htmlmin": "^0.2.0",
-    "gulp-jade": "^0.10.0",
+    "bower": "^1.7.7",
+    "coffee-script": "^1.10.0",
+    "conventional-changelog": "^1.0.1",
+    "del": "^2.2.0",
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-bump": "^1.0.0",
+    "gulp-coffee": "^2.3.1",
+    "gulp-coffeelint": "^0.6.0",
+    "gulp-concat-util": "^0.5.5",
+    "gulp-filter": "^3.0.1",
+    "gulp-git": "^1.7.0",
+    "gulp-htmlmin": "^1.3.0",
+    "gulp-jade": "^1.1.0",
     "gulp-ngtemplate": "^0.2.3",
     "gulp-order": "^1.1.1",
-    "gulp-rename": "^1.2.0",
-    "gulp-stylus": "^1.3.4",
-    "gulp-tag-version": "^1.2.1",
-    "jade": "^1.8.2",
-    "nib": "^1.0.4",
-    "run-sequence": "^1.0.2",
-    "stylus": "^0.49.3"
+    "gulp-rename": "^1.2.2",
+    "gulp-stylus": "^2.3.0",
+    "gulp-tag-version": "^1.3.0",
+    "jade": "^1.11.0",
+    "nib": "^1.1.0",
+    "run-sequence": "^1.1.5",
+    "stylus": "^0.53.0"
   },
   "scripts": {
     "test": "grunt travis-test --verbose",
@@ -44,6 +44,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/iamryandrake/ol-date-time.git"
+    "url": "git://github.com/iamryandrake/sc-date-time.git"
   }
 }

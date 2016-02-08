@@ -22,7 +22,7 @@
     <div class="full-title">{{display.fullTitle()}}</div>
     <div class="date-control">
       <div class="title" layout="row">
-        <md-button aria-label="{{:: translations.previousMonth}}" ng-class="{'visuallyhidden': calendar.isVisibleMonthButton('mindate')}" ng-click="calendar._incMonth(-1)" flex class="left">
+        <md-button aria-label="{{:: translations.previousMonth}}" ng-class="{'visuallyhidden': calendar.isVisibleMonthButton('mindate')}" ng-click="calendar._incMonth(-1)" class="left">
           <i class="material-icons">keyboard_arrow_left</i>
         </md-button>
         <div flex="70" layout="row" class="month-year">
@@ -33,7 +33,7 @@
             <input class="year-part" max="{{restrictions.maxdate ? restrictions.maxdate.getFullYear() : NaN}}" min="{{restrictions.mindate ? restrictions.mindate.getFullYear() : 0}}" ng-model="calendar._year" type="number"/>
           </div>
         </div>
-        <md-button aria-label="{{:: translations.nextMonth}}" ng-class="{'visuallyhidden': calendar.isVisibleMonthButton('maxdate')}" ng-click="calendar._incMonth(1)" flex class="right">
+        <md-button aria-label="{{:: translations.nextMonth}}" ng-class="{'visuallyhidden': calendar.isVisibleMonthButton('maxdate')}" ng-click="calendar._incMonth(1)" class="right">
           <i class="material-icons">keyboard_arrow_right</i>
         </md-button>
       </div>
